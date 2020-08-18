@@ -7,7 +7,7 @@ try:
 except:
     pass
 
-with open('README.md') as f:
+with open('README.md', "r", encoding="utf-8", errors="ignore") as f:
     long_description = f.read()
 
 __version__ = '1.0.0'
