@@ -1112,23 +1112,6 @@ class FieldElement:
     def __setitem__(self, key, value):
         self.attrs[key] = unicode(value)
 
-        if key == "value" and value.startswith("{'"):
-            tmp = eval(value)
-            allow_keys = ['add', 'set', 'inc']
-            if len(tmp) > 1:
-                raise NotFieldOption('Only one option is available.')
-
-            first_key = tmp.popitem()
-
-            if first_key[0] not in allow_keys:
-                raise NotFieldOption('This option is not allowed.')
-
-            self.attrs["update"] = '"{0}"'.format(first_key[0])
-            if type(first_key[1]) == list:
-                # self.attrs["multi_update"] = self.attrs["update"]
-                self.attrs["multi_value"] = first_key[1]
-            self.attrs["value"] = unicode(first_key[1])
-
     def get_attr(self):
         attrs = [u'{0}={1}'.format(attr_name, attr_value)
                  for attr_name, attr_value in self.attrs.items()
